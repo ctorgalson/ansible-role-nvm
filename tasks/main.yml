@@ -1,0 +1,22 @@
+---
+# tasks file for ansible-role-nvm
+
+- name: Clone nvm repo to user home directory.
+  git:
+    repo: "{{ nvm_repository }}"
+    dest: "{{ nvm_home_dir }}/{{ item.user }}/{{ nvm_dir_name }}"
+    update: "{{ nvm_git_update }}"
+    version: "{{ nvm_git_version }}"
+  with_items: "{{ nvm_user_data }}"
+  become: yes
+  become_user: "{{ item.user }}"
+
+- name: Add nvm lines to .bashrc etc.
+  blockinfile:
+    path: "{{ nvm_home_dir }}/{{ item.user }}/{{ item.rc_file | default('.bashrc') }}"
+    block: "{{ nvm_rc_file_block }}"
+    create: "{{ nvm_rc_file_create }}"
+    backup: "{{ nvm_rc_file_backup }}"
+    marker: "{{ nvm_rc_file_marker }}"
+  with_items: "{{ nvm_user_data }}"
+  when: nvm_rc_modify

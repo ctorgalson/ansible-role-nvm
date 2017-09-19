@@ -1,0 +1,19 @@
+---
+# defaults file for ansible-role-nvm
+
+nvm_repository: "https://github.com/creationix/nvm.git"
+nvm_home_dir: "/home"
+nvm_user_data: []
+# SAMPLE DATA
+#  - user: "ctorgalson"
+#    rc_file: ".bashrc"
+nvm_dir_name: ".nvm"
+nvm_git_update: no
+nvm_git_version: "HEAD"
+nvm_rc_file_block: |
+  export NVM_DIR="$HOME/{{ nvm_dir_name }}"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+nvm_rc_file_create: yes
+nvm_rc_file_backup: yes
+nvm_rc_file_marker: "# {MARK} Managed by Ansible role 'ctorgalson.nvm'"
+nvm_rc_modify: true
