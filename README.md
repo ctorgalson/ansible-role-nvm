@@ -1,4 +1,4 @@
-# Role Name
+# Ansible Role NVM
 
 This role installs [nvm](https://github.com/creationix/nvm) on Ubuntu/macOS (and other \*nix environments).
 
