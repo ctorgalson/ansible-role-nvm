@@ -1,7 +1,7 @@
 ---
 # defaults file for ansible-role-nvm
 
-nvm_repository: "https://github.com/creationix/nvm.git"
+nvm_repository: "https://github.com/nvm-sh/nvm.git"
 nvm_home_dir: "/home"
 nvm_user_data: []
 # SAMPLE DATA
