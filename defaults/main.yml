@@ -16,4 +16,4 @@ nvm_rc_file_block: |
 nvm_rc_file_create: true
 nvm_rc_file_backup: true
 nvm_rc_file_marker: "# {MARK} Managed by Ansible role 'ctorgalson.nvm'"
-nvm_rc_modify: true
+nvm_rc_modify: false
