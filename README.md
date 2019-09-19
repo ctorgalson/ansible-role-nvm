@@ -1,6 +1,8 @@
 # Ansible Role NVM
 
-This role installs [nvm](https://github.com/creationix/nvm) on Ubuntu/macOS (and other \*nix environments).
+[![Build Status](https://travis-ci.com/ctorgalson/ansible-role-nvm.svg?branch=master)](https://travis-ci.com/ctorgalson/ansible-role-nvm)
+
+This role installs [nvm](https://github.com/nvm-sh/nvm) on Linux/macOS (and other \*nix environments).
 
 Specifically, the role performs the following tasks:
 
@@ -9,19 +11,18 @@ Specifically, the role performs the following tasks:
 
 ## Role Variables
 
+All of the following variables can be set, but _only_ `nvm_users` is
+mandatory.
+
 | Variable name | Default value | Description |
 |---------------|---------------|-------------|
-| `nvm_repository`     | `https://github.com/creationix/nvm.git` | URL to be used by git clone. |
-| `nvm_home_dir`       | `/home` | Path to home directory; set to `/Users` for macOS. |
-| `nvm_user_data`      | `[]`    | An array of users to install/configure nvm for. each item must contain at least `user`; see `defaults/main.yml` and Example Playbook below for details. |
-| `nvm_dir_name`       | `.nvm`  | Directory in user's home directory where nvm should be installed. |
-| `nvm_git_update`     | `no`    | Whether or not to update git repository when role runs. |
-| `nvm_git_version`    | `HEAD`  | Git-specific string for desired version. |
-| `nvm_rc_file_block`  | `export NVM_DIR="$HOME/{{ nvm_dir_name }}" ; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"` | Setup lines for nvm. |
-| `nvm_rc_file_create` | `yes`   | Whether or not to create an `.*rc` file if not prsent. |
-| `nvm_rc_file_backup` | `yes`   | Whether or not to backup the `*.rc` file the role modifies. |
-| `nvm_rc_file_marker` | `# {MARK} Managed by Ansible role 'ctorgalson.nvm'` | File markers to insert before and after the lines the role adds to a `.*rc` file. |
-| `nvm_rc_modify`      | `true`  | Whether or not to modify the `.*rc` file at all; set this to `false` if adding nvm-specific code by some other means. |
+| `nvm_repository`     | `https://github.com/nvm-sh/nvm.git` | URL to be used by git clone. |
+| `nvm_users`          | `[]`   | An array of users to install/configure nvm for. each item must contain at least `name`; see `defaults/main.yml`, `molecule/default/playbook`, and Example Playbook below for details. |
+| `nvm_dir_name`       | `.nvm` | Directory in user's home directory where nvm should be installed. |
+| `nvm_git_update`     | `false`| Whether or not to update git repository when role runs. |
+| `nvm_git_version`    | `HEAD` | Git-specific string for desired version. |
+| `nvm_rc_file_create` | `true` | Whether or not to create an `.*rc` file if not present. |
+| `nvm_rc_file_backup` | `true` | Whether or not to backup the `.*rc` file the role modifies. |
 
 ## Example Playbook
 
@@ -30,13 +31,13 @@ Specifically, the role performs the following tasks:
         - ctorgalson.nvm
 
       vars:
-        - nvm_user_data:
-          - user: "ctorgalson"
+        nvm_users:
+          - name: "ctorgalson"
             rc_file: ".zshrc"
 
 ## License
 
-MIT
+GPLv2
 
 ## Author Information
 
