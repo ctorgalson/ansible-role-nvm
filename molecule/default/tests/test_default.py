@@ -2,14 +2,20 @@ import os
 
 import testinfra.utils.ansible_runner
 
+import pytest
+
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']
 ).get_hosts('all')
 
 
-def test_hosts_file(host):
-    f = host.file('/etc/hosts')
+@pytest.mark.parametrize('username', [
+    'lorem',
+    'ipsum',
+])
+def test_nvm_dir(host, username):
+    d = host.file('/home/{}'.format(username))
 
-    assert f.exists
-    assert f.user == 'root'
-    assert f.group == 'root'
+    assert d.exists
+    assert d.user == username
+    assert d.group == username

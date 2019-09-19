@@ -1,0 +1,22 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Install packages needed for tests.
+      apt:
+        name: "{{ pkg }}"
+      loop:
+        - "git"
+      loop_control:
+        loop_var: "pkg"
+
+    - name: Create users for NVM testing.
+      user:
+        name: "{{ user.name }}"
+        shell: "{{ user.shell | default(omit) }}"
+      loop:
+        - name: "lorem"
+          shell: "/bin/zsh"
+        - name: "ipsum"
+      loop_control:
+        loop_var: "user"
