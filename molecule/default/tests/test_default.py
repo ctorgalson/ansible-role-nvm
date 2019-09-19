@@ -19,3 +19,15 @@ def test_nvm_dir(host, username):
     assert d.exists
     assert d.user == username
     assert d.group == username
+
+
+@pytest.mark.parametrize('username,filename', [
+    ('lorem', '.zshrc')
+])
+def test_rc_file(host, username, filename):
+    f = host.file('/home/{}/{}'.format(username, filename))
+
+    assert f.exists
+    assert 'export NVM_DIR=' in f.content_string
+    assert f.user == username
+    assert f.group == username
