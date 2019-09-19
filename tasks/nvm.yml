@@ -1,0 +1,28 @@
+---
+# NVM installation tasks for ansible-role-nvm.
+
+- name: Determine user directory path.
+  set_fact:
+    nvm_user_home: "/{{ (ansible_os_family == 'Darwin') | ternary('Users', 'home') }}/{{ nvm_user.name }}"
+
+- name: Clone nvm repo to user home directory.
+  git:
+    repo: "{{ nvm_repository }}"
+    dest: "{{ nvm_user_home }}/{{ nvm_dir_name }}"
+    update: "{{ nvm_git_update }}"
+    version: "{{ nvm_git_version }}"
+  become: true
+  become_user: "{{ nvm_user.name }}"
+
+- name: Add nvm lines to .bashrc etc.
+  blockinfile:
+    path: "{{ nvm_user_home }}/{{ nvm_user.rc_file | default('.bashrc') }}"
+    block: "{{ nvm_rc_file_block }}"
+    create: "{{ nvm_rc_file_create }}"
+    backup: "{{ nvm_rc_file_backup }}"
+    marker: "{{ nvm_rc_file_marker }}"
+  become: true
+  become_user: "{{ nvm_user.name }}"
+  when:
+    - "nvm_user.rc_file is defined"
+    - "nvm_rc_modify"

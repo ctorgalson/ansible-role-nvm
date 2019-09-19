@@ -3,9 +3,9 @@
 
 nvm_repository: "https://github.com/nvm-sh/nvm.git"
 nvm_home_dir: "/home"
-nvm_user_data: []
+nvm_users: []
 # SAMPLE DATA
-#  - user: "ctorgalson"
+#  - name: "ctorgalson"
 #    rc_file: ".bashrc"
 nvm_dir_name: ".nvm"
 nvm_git_update: false
