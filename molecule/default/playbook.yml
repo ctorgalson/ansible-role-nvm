@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    nvm_users:
+      - name: "lorem"
+        rc_file: ".zshrc"
+      - name: "ipsum"
+    nvm_rc_modify: true
+  roles:
+    - role: ansible-role-nvm
