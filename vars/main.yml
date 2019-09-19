@@ -1,0 +1,6 @@
+---
+# vars file for ansible-role-nvm.
+
+nvm_rc_file_block: |
+  export NVM_DIR="$HOME/{{ nvm_dir_name | default('.nvm') }}"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
