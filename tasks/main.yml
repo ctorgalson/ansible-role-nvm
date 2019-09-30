@@ -3,6 +3,3 @@
 
 - name: Include and run tasks for each user.
   include_tasks: "nvm.yml"
-  loop: "{{ nvm_users }}"
-  loop_control:
-    loop_var: "nvm_user"
