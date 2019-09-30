@@ -17,7 +17,7 @@ mandatory.
 | Variable name | Default value | Description |
 |---------------|---------------|-------------|
 | `nvm_repository`     | `https://github.com/nvm-sh/nvm.git` | URL to be used by git clone. |
-| `nvm_users`          | `[]`   | An array of users to install/configure nvm for. each item must contain at least `name`; see `defaults/main.yml`, `molecule/default/playbook`, and Example Playbook below for details. |
+| `nvm_user`           | `null` | A dict containing info about the user to install/configure nvm for. Must contain at least `name`; see `defaults/main.yml`, `molecule/default/playbook`, and Example Playbook below for details. |
 | `nvm_dir_name`       | `.nvm` | Directory in user's home directory where nvm should be installed. |
 | `nvm_git_update`     | `false`| Whether or not to update git repository when role runs. |
 | `nvm_git_version`    | `HEAD` | Git-specific string for desired version. |
@@ -31,9 +31,9 @@ mandatory.
         - ctorgalson.nvm
 
       vars:
-        nvm_users:
-          - name: "ctorgalson"
-            rc_file: ".zshrc"
+        nvm_user:
+          name: "ctorgalson"
+          rc_file: ".zshrc"
 
 ## License
 
